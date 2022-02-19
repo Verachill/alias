@@ -1,13 +1,13 @@
 import { db } from "./db";
-import { wordType } from "../types";
+import { wordType, themesType} from "../types";
 
 const themesRef = db.collection("themes");
 
-export async function fetch_themes_all(): Promise<wordType[]>  {
+export async function fetch_themes_all(): Promise<themesType[]>  {
   const snapshot = await themesRef.get();
-  const data: wordType[] = []
+  const data: themesType[] = []
   snapshot.forEach((doc) => {
-    data.push(doc.data() as wordType);
+    data.push(doc.data() as themesType);
   });
   return data;
 }
