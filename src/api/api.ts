@@ -24,7 +24,7 @@ export async function fetch_words_all(): Promise<wordType[]>  {
 }
 
 export async function fetch_words_themes_all(themes: String): Promise<wordType[]>  {
-  const snapshot = await wordsRef.where("themes", "==", themes).get();
+  const snapshot = await wordsRef.where("themes.name", "==", themes).get();
   const data: wordType[] = []
   snapshot.forEach((doc) => {
     data.push(doc.data() as wordType);
