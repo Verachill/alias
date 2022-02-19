@@ -2,5 +2,5 @@ import React from "react";
 import "./style.scss";
 
 export default function App() {
-  return <div>Hello world!</div>;
+  return <div>Hello!</div>;
 }
