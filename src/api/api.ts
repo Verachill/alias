@@ -1,6 +1,5 @@
 import { db } from "./db";
 import { wordType, themesType} from "../types";
-import admin from 'firebase-admin'
 import firebase from "firebase/compat/app";
 
 interface fetchInterface{
