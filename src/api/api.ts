@@ -59,11 +59,16 @@ export async function fetch_words_themes_all({themes, limit = 10}: fetchInterfac
 
 export async function fetch_random_words({themes, limit = 10}: fetchInterface) {
   var key = wordsRef.doc().id;
-  const snapshot = await wordsRef
+  let snapshot = await wordsRef
                         .where(firebase.firestore.FieldPath.documentId(), '>=', key)
                         .limit(limit)
                         .get()
-
+  if (snapshot.size < limit){
+  snapshot = await wordsRef
+                        .where(firebase.firestore.FieldPath.documentId(), '<', key)
+                        .limit(limit)
+                        .get()
+  }
   const data: wordType[] = []
   snapshot.forEach((doc) => {
     data.push(doc.data() as wordType);
