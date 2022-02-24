@@ -1,5 +1,12 @@
 import { db } from "./db";
 import { wordType, themesType} from "../types";
+import admin from 'firebase-admin'
+import firebase from "firebase/compat/app";
+
+interface fetchInterface{
+  limit?: number,
+  themes?: string
+}
 
 const themesRef = db.collection("themes");
 
@@ -14,8 +21,11 @@ export async function fetch_themes_all(): Promise<themesType[]>  {
 
 const wordsRef = db.collection("words");
 
-export async function fetch_words_all(): Promise<wordType[]>  {
-  const snapshot = await wordsRef.get();
+export async function fetch_words_all({limit = 10}: fetchInterface): Promise<wordType[]>  {
+  const snapshot = await wordsRef
+                        .limit(limit)
+                        .get()
+
   const data: wordType[] = []
   snapshot.forEach((doc) => {
     data.push(doc.data() as wordType);
@@ -23,8 +33,38 @@ export async function fetch_words_all(): Promise<wordType[]>  {
   return data;
 }
 
-export async function fetch_words_themes_all(themes: String): Promise<wordType[]>  {
-  const snapshot = await wordsRef.where("themes.name", "==", themes).get();
+
+
+export async function fetch_words_themes_all({themes, limit = 10}: fetchInterface): Promise<wordType[]>  {
+  const snapshot = await wordsRef
+                        .where("themes.name", "==", themes)
+                        .limit(limit)
+                        .get();
+                        
+  const data: wordType[] = []
+  snapshot.forEach((doc) => {
+    data.push(doc.data() as wordType);
+  });
+  return data;
+}
+
+// export async function fetch_words_all(): Promise<wordType[]>  {
+//   const snapshot = await wordsRef.get();
+//   const data: wordType[] = []
+//   snapshot.forEach((doc) => {
+//     data.push(doc.data() as wordType);
+//   });
+//   return data;
+// }
+
+
+export async function fetch_random_words({themes, limit = 10}: fetchInterface) {
+  var key = wordsRef.doc().id;
+  const snapshot = await wordsRef
+                        .where(firebase.firestore.FieldPath.documentId(), '>=', key)
+                        .limit(limit)
+                        .get()
+
   const data: wordType[] = []
   snapshot.forEach((doc) => {
     data.push(doc.data() as wordType);
