@@ -22,7 +22,6 @@ const BackgroundImage = styled.img`
   top: 0px;
   left: 0px;
   z-index: -1;
-  background-color: black;
 
   &.backgroundImage-enter {
     opacity: 0;

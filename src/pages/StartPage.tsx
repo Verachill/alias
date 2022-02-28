@@ -6,7 +6,6 @@ import {
 } from 'react-bootstrap-icons'
 import Button from '../components/Button'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-
 import Background from '../components/Background'
 import styled, { useTheme } from 'styled-components'
 
@@ -39,8 +38,8 @@ export default function StartPage({
                       size={32}
                       style={{
                         position: 'absolute',
-                        top: 60 / 2 - 32 / 2,
-                        left: 100 / 2 - 32 / 2,
+                        top: (60 - 32) / 2,
+                        left: (100 - 32) / 2,
                       }}
                     />
                   ) : (
@@ -48,15 +47,15 @@ export default function StartPage({
                       size={24}
                       style={{
                         position: 'absolute',
-                        top: 60 / 2 - 24 / 2,
-                        left: 100 / 2 - 24 / 2,
+                        top: (60 - 24) / 2,
+                        left: (100 - 24) / 2,
                       }}
                     />
                   )}
                 </CSSTransition>
               </TransitionGroup>
             </Button>
-            <Button>
+            <Button style={{ width: '100%' }}>
               <VolumeUpFill size={32} />
             </Button>
           </ButtonsSubContainer>

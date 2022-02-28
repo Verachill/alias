@@ -1,8 +1,16 @@
 export type themesType = {
-  name: String
+  name?: string,
 }
 
 export type wordType = {
-  name: String
-  themes: themesType
+    name?: string,
+    themes?: themesType
+}
+
+// ----------------------
+
+export type playerType = {
+    id: number,
+    name: string,
+    score: number
 }
