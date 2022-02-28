@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { wordType } from './types'
 import { fetch_words_themes_all, fetch_random_words } from './api/api'
 import StartPage from './pages/StartPage'
-import themeObject from './interfaces'
-import { ThemeContext } from './context-theme'
+import { ThemeProvider } from 'styled-components'
+import { darkTheme, lightTheme } from './colorscheme'
 
 export default function App() {
-  const theme: themeObject = React.useContext(ThemeContext).state
-  const [data, setData] = useState<wordType[]>([])
-  const [data1, setData1] = useState<wordType[]>([])
+  const [, setData] = useState<wordType[]>([])
+  const [, setData1] = useState<wordType[]>([])
 
   useEffect(() => {
     const getData = async () => {
@@ -29,9 +28,11 @@ export default function App() {
     getData()
   }, [setData1])
 
+  const [isDark, setIsDark] = React.useState(false)
+
   return (
-    <div className="main" style={{ color: theme.text, fontSize: 16 }}>
-      <StartPage />
-    </div>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+      <StartPage toggleTheme={() => setIsDark(!isDark)} />
+    </ThemeProvider>
   )
 }

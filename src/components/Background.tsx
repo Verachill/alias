@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 
 export default function Background({
   isDark,
@@ -6,21 +7,34 @@ export default function Background({
   isDark: boolean
 }): JSX.Element {
   return (
-    <img
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        zIndex: -1,
-        backgroundColor: 'black',
-        filter: !isDark ? 'none' : 'invert(1)',
-        width: '100vw',
-        height: '100vh',
-        objectFit: 'cover'
-      }}
+    <BackgroundImage
       width={window.innerWidth}
       height={window.innerHeight}
-      src={require('../images/backLight.jpg')}
+      src={require(isDark
+        ? '../images/backDark.jpg'
+        : '../images/backLight.jpg')}
     />
   )
 }
+
+const BackgroundImage = styled.img`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: -1;
+
+  &.backgroundImage-enter {
+    opacity: 0;
+  }
+  &.backgroundImage-enter-active {
+    opacity: 1;
+    transition: 0.2s ease-in;
+  }
+  &.backgroundImage-exit {
+    opacity: 1;
+  }
+  &.backgroundImage-exit-active {
+    opacity: 0;
+    transition: 0.2s ease-in;
+  }
+`

@@ -11,7 +11,7 @@ code {
 }
 
 /* Animation declaration */
-
+/* 
 .backgroundImage-enter,
 .themeIcon-enter {
   opacity: 0;
@@ -29,4 +29,4 @@ code {
 .themeIcon-exit-active {
   opacity: 0;
   transition: opacity 0.2s ease-in;
-}
+} */
