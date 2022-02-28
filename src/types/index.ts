@@ -1,8 +1,8 @@
 export type themesType = {
-    name: String,
+  name: String
 }
 
 export type wordType = {
-    name: String,
-    themes: themesType
+  name: String
+  themes: themesType
 }
