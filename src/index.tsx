@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import './index.css'
 
-import { ThemeProvider } from './context-theme.js'
+import { ThemeProvider } from 'styled-components'
+import { darkTheme } from './colorscheme'
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 )
