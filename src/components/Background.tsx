@@ -13,14 +13,14 @@ export default function Background({
         left: 0,
         zIndex: -1,
         backgroundColor: 'black',
-        filter: isDark ? 'none' : 'invert(1)',
+        filter: !isDark ? 'none' : 'invert(1)',
         width: '100vw',
         height: '100vh',
         objectFit: 'cover'
       }}
       width={window.innerWidth}
       height={window.innerHeight}
-      src={require('../images/backDark.jpg')}
+      src={require('../images/backLight.jpg')}
     />
   )
 }
