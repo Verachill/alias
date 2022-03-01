@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { wordType } from './types'
 import { fetchWordsThemesAll, fetchRandomWords } from './api/api'
 import StartPage from './pages/StartPage'
+// ------------------------
 import { ThemeProvider } from 'styled-components'
+import { GameProvider } from './contexts/GameContext'
+import { ConfigProvider } from './contexts/ConfigContext'
+// ------------------------
+
 import { darkTheme, lightTheme } from './colorscheme'
 
 export default function App() {
@@ -32,7 +37,11 @@ export default function App() {
 
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <StartPage toggleTheme={() => setIsDark(!isDark)} />
+      <ConfigProvider>
+        <GameProvider>
+          <StartPage toggleTheme={() => setIsDark(!isDark)} />
+        </GameProvider>
+      </ConfigProvider>
     </ThemeProvider>
   )
 }

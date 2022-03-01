@@ -1,18 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   BrightnessHighFill,
   MoonFill,
   VolumeUpFill,
+  VolumeMuteFill,
 } from 'react-bootstrap-icons'
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import Background from '../components/Background'
 import styled, { useTheme } from 'styled-components'
 import { AnimatePresence, motion } from 'framer-motion'
-
+// -----------------------------
 import ButtonAnimation from '../components/ButtonAnimation'
 import Button from '../components/Button'
 import Logo from '../images/Logo'
+// -----------------------------
+import { Context as ConfigContext } from '../contexts/ConfigContext'
 
 export default function StartPage({
   toggleTheme,
@@ -20,6 +23,11 @@ export default function StartPage({
   toggleTheme: () => void
 }): JSX.Element {
   const theme = useTheme()
+  const config = useContext(ConfigContext)
+
+  const toggleSound = () => {
+    config?.dispatch({ type: 'toggle_sound' })
+  }
 
   return (
     <>
@@ -61,8 +69,28 @@ export default function StartPage({
               </AnimatePresence>
             </Button>
 
-            <Button>
-              <VolumeUpFill size={32} />
+            <Button onclick={toggleSound}>
+              <AnimatePresence exitBeforeEnter initial={false}>
+                <motion.div
+                  className="themeIcon"
+                  style={{ display: 'inline-block' }}
+                  key={config?.state.sound ? 'dark' : 'light'}
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: 20, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <VolumeUpFill
+                    size={32}
+                    style={{ display: config?.state.sound ? 'block' : 'none' }}
+                  />
+
+                  <VolumeMuteFill
+                    size={32}
+                    style={{ display: !config?.state.sound ? 'block' : 'none' }}
+                  />
+                </motion.div>
+              </AnimatePresence>
             </Button>
           </ButtonsSubContainer>
         </ButtonsContainer>
