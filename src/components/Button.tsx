@@ -11,6 +11,7 @@ export default function Button({
   children: any
   onclick?: () => void
   style?: React.CSSProperties
+  small?: boolean
 }): JSX.Element {
   return (
     <StyledButton onClick={onclick} style={style}>
@@ -33,6 +34,7 @@ const StyledButton = styled.button`
     transition: all 0.2s ease-in;
     position: relative;
     color: ${(props) => props.theme.text};
+    width: 100%;
     background: ${(props) =>
       props.theme.isDark
         ? `radial-gradient(100% 2388.37% at 0% 0%, rgba(255, 255, 255, 0.48) 0%, rgba(255, 255, 255, 0.06) 100%);`
