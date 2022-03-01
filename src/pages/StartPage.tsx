@@ -4,10 +4,15 @@ import {
   MoonFill,
   VolumeUpFill,
 } from 'react-bootstrap-icons'
-import Button from '../components/Button'
+
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import Background from '../components/Background'
 import styled, { useTheme } from 'styled-components'
+import { AnimatePresence, motion } from 'framer-motion'
+
+import ButtonAnimation from '../components/ButtonAnimation'
+import Button from '../components/Button'
+import Logo from '../images/Logo'
 
 export default function StartPage({
   toggleTheme,
@@ -19,42 +24,43 @@ export default function StartPage({
   return (
     <>
       <Container>
-        <Title>Alias</Title>
-
+        <Logo />
+        {
+          // Logo may change
+        }
         <ButtonsContainer className="buttons">
-          <Button>Новая игра</Button>
-          <Button>Правила</Button>
+          <ButtonAnimation>
+            <Button>Новая игра</Button>
+          </ButtonAnimation>
+          <ButtonAnimation>
+            <Button>Правила</Button>
+          </ButtonAnimation>
 
           <ButtonsSubContainer className="subButtons">
             <Button onclick={toggleTheme}>
-              <TransitionGroup>
-                <CSSTransition
+              <AnimatePresence exitBeforeEnter initial={false}>
+                <motion.div
+                  className="themeIcon"
+                  style={{ display: 'inline-block' }}
                   key={theme.isDark ? 'dark' : 'light'}
-                  timeout={200}
-                  classNames="themeIcon"
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: 20, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  {theme.isDark ? (
-                    <BrightnessHighFill
-                      size={32}
-                      style={{
-                        position: 'absolute',
-                        top: (60 - 32) / 2,
-                        left: (140 - 32) / 2,
-                      }}
-                    />
-                  ) : (
-                    <MoonFill
-                      size={24}
-                      style={{
-                        position: 'absolute',
-                        top: (60 - 24) / 2,
-                        left: (140 - 24) / 2,
-                      }}
-                    />
-                  )}
-                </CSSTransition>
-              </TransitionGroup>
+                  <BrightnessHighFill
+                    size={32}
+                    style={{ display: !theme.isDark ? 'block' : 'none' }}
+                  />
+
+                  <MoonFill
+                    size={24}
+                    style={{ display: theme.isDark ? 'block' : 'none' }}
+                  />
+                </motion.div>
+              </AnimatePresence>
             </Button>
+
             <Button>
               <VolumeUpFill size={32} />
             </Button>
@@ -64,7 +70,7 @@ export default function StartPage({
 
       <TransitionGroup>
         <CSSTransition
-          key={theme.isDark ? 'dark' : 'light'}
+          key={theme.isDark ? 'darkBackground' : 'lightBackground'}
           timeout={200}
           classNames="backgroundImage"
         >
