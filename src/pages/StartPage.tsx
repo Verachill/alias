@@ -22,8 +22,8 @@ export default function StartPage({
         <Title>Alias</Title>
 
         <ButtonsContainer className="buttons">
-          <Button style={{ width: 200 }}>Новая игра</Button>
-          <Button style={{ width: 200 }}>Правила</Button>
+          <Button>Новая игра</Button>
+          <Button>Правила</Button>
 
           <ButtonsSubContainer className="subButtons">
             <Button onclick={toggleTheme}>
@@ -39,7 +39,7 @@ export default function StartPage({
                       style={{
                         position: 'absolute',
                         top: (60 - 32) / 2,
-                        left: (100 - 32) / 2,
+                        left: (140 - 32) / 2,
                       }}
                     />
                   ) : (
@@ -48,14 +48,14 @@ export default function StartPage({
                       style={{
                         position: 'absolute',
                         top: (60 - 24) / 2,
-                        left: (100 - 24) / 2,
+                        left: (140 - 24) / 2,
                       }}
                     />
                   )}
                 </CSSTransition>
               </TransitionGroup>
             </Button>
-            <Button style={{ width: '100%' }}>
+            <Button>
               <VolumeUpFill size={32} />
             </Button>
           </ButtonsSubContainer>
@@ -87,10 +87,12 @@ const Container = styled.div`
 const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 300px;
 `
 const ButtonsSubContainer = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 `
 const Title = styled.h1`
   font-family: Roboto;
