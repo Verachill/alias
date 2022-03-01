@@ -59,7 +59,6 @@ const LogoContainer = styled.div`
     path {
       transition: 0.2s ease-in;
       stroke: ${({ theme }) => theme.text};
-      fill: ${({ theme }) => theme.main};
     }
     .text {
       fill: ${({ theme }) => theme.text};
