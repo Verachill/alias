@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { wordType } from './types'
-import { fetch_words_themes_all, fetch_random_words } from './api/api'
+import { fetchWordsThemesAll, fetchRandomWords } from './api/api'
 import StartPage from './pages/StartPage'
 import { ThemeProvider } from 'styled-components'
 import { darkTheme, lightTheme } from './colorscheme'
@@ -11,7 +11,7 @@ export default function App() {
 
   useEffect(() => {
     const getData = async () => {
-      const dataFetched = await fetch_random_words({ limit: 10 })
+      const dataFetched = await fetchRandomWords({ limit: 10 })
       setData(dataFetched)
     }
     getData()
@@ -19,7 +19,7 @@ export default function App() {
 
   useEffect(() => {
     const getData = async () => {
-      const dataFetched = await fetch_words_themes_all({
+      const dataFetched = await fetchWordsThemesAll({
         themes: 'test',
         limit: 10,
       })

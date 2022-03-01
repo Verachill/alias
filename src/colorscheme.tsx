@@ -5,12 +5,12 @@ import { DefaultTheme } from 'styled-components'
 
 declare module 'styled-components' {
   export interface DefaultTheme {
-      isDark: boolean
-      main: string
-      primaryColor: string
-      secondaryColor: string
-      text: string
-      opacityText: string
+    isDark: boolean
+    main: string
+    primaryColor: string
+    secondaryColor: string
+    text: string
+    opacityText: string
   }
 }
 

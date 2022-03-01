@@ -20,7 +20,7 @@ export async function fetch_themes_all(): Promise<themesType[]> {
 
 const wordsRef = db.collection('words')
 
-export async function fetch_words_all({
+export async function fetchWordsAll({
   limit = 10,
 }: fetchInterface): Promise<wordType[]> {
   const snapshot = await wordsRef.limit(limit).get()
@@ -32,7 +32,7 @@ export async function fetch_words_all({
   return data
 }
 
-export async function fetch_words_themes_all({
+export async function fetchWordsThemesAll({
   themes,
   limit = 10,
 }: fetchInterface): Promise<wordType[]> {
@@ -57,10 +57,7 @@ export async function fetch_words_themes_all({
 //   return data;
 // }
 
-export async function fetch_random_words({
-  themes,
-  limit = 10,
-}: fetchInterface) {
+export async function fetchRandomWords({ themes, limit = 10 }: fetchInterface) {
   var key = wordsRef.doc().id
   let snapshot = await wordsRef
     .where(firebase.firestore.FieldPath.documentId(), '>=', key)
