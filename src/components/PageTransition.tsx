@@ -15,6 +15,10 @@ export default function PageTranstition({
   const startPosition: number =
     window.innerWidth * (leftToRight ? -1 : rightToLeft ? 1 : 0)
 
+  React.useEffect(() => {
+    const event = new Event('pageLoaded')
+    document.dispatchEvent(event)
+  }, [])
   return (
     <AnimatePresence>
       <motion.div

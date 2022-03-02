@@ -9,6 +9,7 @@ type ButtonProps = {
   to?: string
   navigationTimeout?: number
   togglePageState?: () => void
+  animationComplete?: boolean
 }
 
 export default function Button({
@@ -18,22 +19,27 @@ export default function Button({
   to = '',
   navigationTimeout = 200,
   togglePageState = () => {},
+  animationComplete,
 }: ButtonProps): JSX.Element {
+  const [next, setNext] = React.useState(false)
   const navigate = useNavigate()
-  const go = (): void => {
-    togglePageState()
-    setTimeout(() => {
-      if (to !== '') {
-        navigate(to)
-      }
-    }, navigationTimeout)
-  }
+
+
+  document.addEventListener('pageLoaded', () => {
+    if (next) {
+      togglePageState()
+    }
+  })
+
+  React.useEffect(() => {
+    navigate(to)
+  }, [animationComplete])
 
   return (
     <StyledButton
       onClick={() => {
         onclick()
-        go()
+        setNext(true)
       }}
       style={style}
     >

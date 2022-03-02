@@ -16,27 +16,7 @@ import Rules from './pages/Rules'
 import Background from './components/Background'
 
 export default function App() {
-  const [, setData] = useState<wordType[]>([])
-  const [, setData1] = useState<wordType[]>([])
 
-  useEffect(() => {
-    const getData = async () => {
-      const dataFetched = await fetchRandomWords({ limit: 10 })
-      setData(dataFetched)
-    }
-    getData()
-  }, [setData])
-
-  useEffect(() => {
-    const getData = async () => {
-      const dataFetched = await fetchWordsThemesAll({
-        themes: 'test',
-        limit: 10,
-      })
-      setData1(dataFetched)
-    }
-    getData()
-  }, [setData1])
 
   const config = useContext(ConfigContext)
 
