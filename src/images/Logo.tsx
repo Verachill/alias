@@ -1,9 +1,7 @@
 import React from 'react'
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 
 export default function Logo(): JSX.Element {
-  const theme = useTheme()
-
   return (
     <LogoContainer>
       <svg

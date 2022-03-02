@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 import { wordType } from './types'
 import { fetchWordsThemesAll, fetchRandomWords } from './api/api'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
+import { GameProvider } from './contexts/GameContext'
+import { Context as ConfigContext } from './contexts/ConfigContext'
+
 import { darkTheme, lightTheme } from './colorscheme'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
@@ -35,32 +38,36 @@ export default function App() {
     getData()
   }, [setData1])
 
-  const defaultTheme: boolean = window.localStorage.getItem('theme') === 'dark'
-  const [isDark, setIsDark] = React.useState(defaultTheme)
-
-  const toggleTheme = (): void => {
-    window.localStorage.setItem('theme', !isDark ? 'dark' : 'light')
-    setIsDark(!isDark)
-  }
+  const config = useContext(ConfigContext)
 
   return (
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<StartPage toggleTheme={toggleTheme} />} />
-          <Route path="/rules" element={<Rules />} />
-        </Routes>
-      </BrowserRouter>
+    <ThemeProvider theme={config?.state.isDark ? darkTheme : lightTheme}>
+      <GameProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <StartPage
+                  toggleTheme={() => config?.dispatch({ type: 'toggleIsDark' })}
+                  toggleSound={() => config?.dispatch({ type: 'toggleSound' })}
+                />
+              }
+            />
+            <Route path="/rules" element={<Rules />} />
+          </Routes>
+        </BrowserRouter>
 
-      <TransitionGroup>
-        <CSSTransition
-          key={isDark ? 'darkBackground' : 'lightBackground'}
-          timeout={200}
-          classNames="backgroundImage"
-        >
-          <Background isDark={isDark} />
-        </CSSTransition>
-      </TransitionGroup>
+        <TransitionGroup>
+          <CSSTransition
+            key={config?.state.isDark ? 'darkBackground' : 'lightBackground'}
+            timeout={200}
+            classNames="backgroundImage"
+          >
+            <Background isDark={config?.state.isDark} />
+          </CSSTransition>
+        </TransitionGroup>
+      </GameProvider>
     </ThemeProvider>
   )
 }

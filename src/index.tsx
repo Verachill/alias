@@ -5,10 +5,14 @@ import './index.css'
 
 import { ThemeProvider } from 'styled-components'
 import { darkTheme } from './colorscheme'
+import { ConfigProvider } from './contexts/ConfigContext'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ConfigProvider>
+      <App />
+    </ConfigProvider>
   </React.StrictMode>,
+
   document.getElementById('root')
 )

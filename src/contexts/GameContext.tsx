@@ -1,5 +1,5 @@
-import React, { createContext, useReducer, useContext } from 'react'
-import { playerType } from './types'
+import React, { createContext, useReducer } from 'react'
+import { playerType } from '../types'
 
 type Action =
   | { type: 'add_player'; paylaod: playerType }
@@ -18,16 +18,18 @@ const Context = createContext<{ state: State; dispatch: Dispatch } | undefined>(
 function playerReducer(state: State, action: Action) {
   switch (action.type) {
     case 'add_player': {
-      return { players: state.players.concat(action.paylaod) }
+      return { ...state, players: state.players.concat(action.paylaod) }
     }
     case 'delete_player': {
       return {
+        ...state,
         players: state.players.filter((e) => e.id !== action.paylaod.id),
       }
     }
     //--------------- Score --------------
     case 'increment_score': {
       return {
+        ...state,
         players: state.players.map((palyer) => {
           if (palyer.id === action.paylaod.id) {
             palyer.score += 1
@@ -38,6 +40,7 @@ function playerReducer(state: State, action: Action) {
     }
     case 'decrement_score': {
       return {
+        ...state,
         players: state.players.map((palyer) => {
           if (palyer.id === action.paylaod.id) {
             palyer.score -= 1
@@ -58,13 +61,5 @@ function GameProvider({ children }: ProviderProps) {
   const value = { state, dispatch }
   return <Context.Provider value={value}>{children}</Context.Provider>
 }
-
-// function useCount() {
-//   const context = useContext(GameProvider)
-//   if (context === undefined) {
-//     throw new Error('useCount must be used within a CountProvider')
-//   }
-//   return context
-// }
 
 export { GameProvider }

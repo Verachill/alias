@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export default function Background({
   isDark,
 }: {
-  isDark: boolean
+  isDark?: boolean
 }): JSX.Element {
   return (
     <BackgroundImage

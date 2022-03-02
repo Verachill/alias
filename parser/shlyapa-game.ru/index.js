@@ -42,21 +42,23 @@ const getData = async (
 };
 const wordsRef = db.collection("words");
 
+const complexity = 'normal'
+
 async function start() {
-  const total = (await getData()).data.result.total;
-  const pages = Math.ceil(total / 600);
+  const total = (await getData()).data.result.total
+  const pages = Math.ceil(total / 600)
 
   for (let i of [...Array(pages).keys()]) {
-    const data = (await getData(600 * i)).data.result.data;
+    const data = (await getData(600 * i, 600, complexity)).data.result.data
     data.forEach(async (element) => {
       const doc = await wordsRef.add({
         name: element.value,
         themes: {
-          name: "*",
+          name: '*',
         },
-      });
-      console.log(doc.id);
-    });
+      })
+      console.log(doc.id)
+    })
   }
 }
 
