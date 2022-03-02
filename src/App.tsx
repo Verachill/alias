@@ -11,35 +11,42 @@ import { ConfigProvider } from './contexts/ConfigContext'
 import { darkTheme, lightTheme } from './colorscheme'
 
 export default function App() {
-  const [, setData] = useState<wordType[]>([])
-  const [, setData1] = useState<wordType[]>([])
+  // const [, setData] = useState<wordType[]>([])
+  // const [, setData1] = useState<wordType[]>([])
 
-  useEffect(() => {
-    const getData = async () => {
-      const dataFetched = await fetchRandomWords({ limit: 10 })
-      setData(dataFetched)
-    }
-    getData()
-  }, [setData])
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const dataFetched = await fetchRandomWords({ limit: 10 })
+  //     setData(dataFetched)
+  //   }
+  //   getData()
+  // }, [setData])
 
-  useEffect(() => {
-    const getData = async () => {
-      const dataFetched = await fetchWordsThemesAll({
-        themes: 'test',
-        limit: 10,
-      })
-      setData1(dataFetched)
-    }
-    getData()
-  }, [setData1])
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const dataFetched = await fetchWordsThemesAll({
+  //       themes: 'test',
+  //       limit: 10,
+  //     })
+  //     setData1(dataFetched)
+  //   }
+  //   getData()
+  // }, [setData1])
 
-  const [isDark, setIsDark] = React.useState(false)
+  const toggleTheme = () => {
+    window.localStorage.setItem('isDark', JSON.stringify(!isDark))
+    setIsDark(!isDark)
+  }
+
+  const [isDark, setIsDark] = React.useState<boolean>(
+    JSON.parse(window.localStorage.getItem('isDark') || 'false')
+  )
 
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <ConfigProvider>
         <GameProvider>
-          <StartPage toggleTheme={() => setIsDark(!isDark)} />
+          <StartPage toggleTheme={() => toggleTheme()} />
         </GameProvider>
       </ConfigProvider>
     </ThemeProvider>
