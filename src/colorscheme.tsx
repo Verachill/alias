@@ -13,7 +13,7 @@ declare module 'styled-components' {
 
 export const lightTheme: DefaultTheme = {
   isDark: false,
-  main: '#FFF',
+  main: '#FFFFFF',
   primaryColor: '#DA22F2',
   secondaryColor: '#8af321',
   text: '#6241AF',
@@ -22,9 +22,9 @@ export const lightTheme: DefaultTheme = {
 
 export const darkTheme: DefaultTheme = {
   isDark: true,
-  main: '#353535',
+  main: '#000000',
   primaryColor: '#ffdb9c',
   secondaryColor: '#fca075',
-  text: '#fff',
+  text: '#ffffff',
   opacityText: 'rgba(255, 255, 255, .75)',
 }

@@ -1,20 +1,42 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 
-export default function Button({
-  children = 'default button',
-  onclick = () => {
-    console.error('Button click event is not declared')
-  },
-  style = {},
-}: {
+type ButtonProps = {
   children: any
   onclick?: () => void
   style?: React.CSSProperties
-  small?: boolean
-}): JSX.Element {
+  to?: string
+  navigationTimeout?: number
+  togglePageState?: () => void
+}
+
+export default function Button({
+  children = 'default button',
+  onclick = () => {},
+  style = {},
+  to = '',
+  navigationTimeout = 200,
+  togglePageState = () => {},
+}: ButtonProps): JSX.Element {
+  const navigate = useNavigate()
+  const go = (): void => {
+    togglePageState()
+    setTimeout(() => {
+      if (to !== '') {
+        navigate(to)
+      }
+    }, navigationTimeout)
+  }
+
   return (
-    <StyledButton onClick={onclick} style={style}>
+    <StyledButton
+      onClick={() => {
+        onclick()
+        go()
+      }}
+      style={style}
+    >
       {children}
     </StyledButton>
   )

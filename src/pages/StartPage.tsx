@@ -5,14 +5,13 @@ import {
   VolumeUpFill,
 } from 'react-bootstrap-icons'
 
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import Background from '../components/Background'
 import styled, { useTheme } from 'styled-components'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import ButtonAnimation from '../components/ButtonAnimation'
 import Button from '../components/Button'
 import Logo from '../images/Logo'
+import PageTransition from '../components/PageTransition'
 
 export default function StartPage({
   toggleTheme,
@@ -20,9 +19,10 @@ export default function StartPage({
   toggleTheme: () => void
 }): JSX.Element {
   const theme = useTheme()
+  const [isExit, setIsExit] = React.useState(false)
 
   return (
-    <>
+    <PageTransition rightToLeft pageIsExit={isExit}>
       <Container>
         <Logo />
         {
@@ -32,8 +32,16 @@ export default function StartPage({
           <ButtonAnimation>
             <Button>Новая игра</Button>
           </ButtonAnimation>
+
           <ButtonAnimation>
-            <Button>Правила</Button>
+            <Button
+              to="/rules"
+              togglePageState={() => {
+                setIsExit(!isExit)
+              }}
+            >
+              Правила
+            </Button>
           </ButtonAnimation>
 
           <ButtonsSubContainer className="subButtons">
@@ -67,17 +75,7 @@ export default function StartPage({
           </ButtonsSubContainer>
         </ButtonsContainer>
       </Container>
-
-      <TransitionGroup>
-        <CSSTransition
-          key={theme.isDark ? 'darkBackground' : 'lightBackground'}
-          timeout={200}
-          classNames="backgroundImage"
-        >
-          <Background isDark={theme.isDark} />
-        </CSSTransition>
-      </TransitionGroup>
-    </>
+    </PageTransition>
   )
 }
 

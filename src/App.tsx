@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react'
+
 import { wordType } from './types'
-import { fetch_words_themes_all, fetch_random_words } from './api/api'
-import StartPage from './pages/StartPage'
+import { fetchWordsThemesAll, fetchRandomWords } from './api/api'
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { darkTheme, lightTheme } from './colorscheme'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
+
+import StartPage from './pages/StartPage'
+import Rules from './pages/Rules'
+import Background from './components/Background'
 
 export default function App() {
   const [, setData] = useState<wordType[]>([])
@@ -11,7 +18,7 @@ export default function App() {
 
   useEffect(() => {
     const getData = async () => {
-      const dataFetched = await fetch_random_words({ limit: 10 })
+      const dataFetched = await fetchRandomWords({ limit: 10 })
       setData(dataFetched)
     }
     getData()
@@ -19,7 +26,7 @@ export default function App() {
 
   useEffect(() => {
     const getData = async () => {
-      const dataFetched = await fetch_words_themes_all({
+      const dataFetched = await fetchWordsThemesAll({
         themes: 'test',
         limit: 10,
       })
@@ -28,11 +35,32 @@ export default function App() {
     getData()
   }, [setData1])
 
-  const [isDark, setIsDark] = React.useState(false)
+  const defaultTheme: boolean = window.localStorage.getItem('theme') === 'dark'
+  const [isDark, setIsDark] = React.useState(defaultTheme)
+
+  const toggleTheme = (): void => {
+    window.localStorage.setItem('theme', !isDark ? 'dark' : 'light')
+    setIsDark(!isDark)
+  }
 
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <StartPage toggleTheme={() => setIsDark(!isDark)} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<StartPage toggleTheme={toggleTheme} />} />
+          <Route path="/rules" element={<Rules />} />
+        </Routes>
+      </BrowserRouter>
+
+      <TransitionGroup>
+        <CSSTransition
+          key={isDark ? 'darkBackground' : 'lightBackground'}
+          timeout={200}
+          classNames="backgroundImage"
+        >
+          <Background isDark={isDark} />
+        </CSSTransition>
+      </TransitionGroup>
     </ThemeProvider>
   )
 }

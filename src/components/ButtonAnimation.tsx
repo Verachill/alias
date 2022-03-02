@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
-interface propsInterface {
+type ButtonAnimationProps = {
   children: any
   style?: React.CSSProperties
 }
 
-function ButtonAnimation(props: propsInterface): JSX.Element {
+function ButtonAnimation(props: ButtonAnimationProps): JSX.Element {
   const [clicked, setClicked] = React.useState(0)
   const handleClick = () => {
     setClicked(clicked + 1)
