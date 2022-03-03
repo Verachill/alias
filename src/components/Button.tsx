@@ -19,27 +19,22 @@ export default function Button({
   to = '',
   navigationTimeout = 200,
   togglePageState = () => {},
-  animationComplete,
 }: ButtonProps): JSX.Element {
-  const [next, setNext] = React.useState(false)
   const navigate = useNavigate()
-
-
-  document.addEventListener('pageLoaded', () => {
-    if (next) {
-      togglePageState()
-    }
-  })
-
-  React.useEffect(() => {
-    navigate(to)
-  }, [animationComplete])
+  const go = (): void => {
+    togglePageState()
+    setTimeout(() => {
+      if (to !== '') {
+        navigate(to)
+      }
+    }, navigationTimeout)
+  }
 
   return (
     <StyledButton
       onClick={() => {
         onclick()
-        setNext(true)
+        go()
       }}
       style={style}
     >
@@ -68,19 +63,10 @@ const StyledButton = styled.button`
         ? `radial-gradient(100% 2388.37% at 0% 0%, rgba(255, 255, 255, 0.48) 0%, rgba(255, 255, 255, 0.06) 100%);`
         : `radial-gradient(100% 2388.37% at 0% 50%, rgba(105, 113, 151, 0.48) 0%, rgba(105, 113, 151, 0.06) 100%);`};
 
-    .themeIcon-enter {
-      opacity: 0;
-    }
-    .themeIcon-enter-active {
-      opacity: 1;
-      transition: 0.2s ease-in;
-    }
-    .themeIcon-exit {
-      opacity: 1;
-    }
-    .themeIcon-exit-active {
-      opacity: 0;
-      transition: 0.2s ease-in;
+    &:hover,
+    &:active {
+      transform: scale(0.92);
+      opacity: 0.6;
     }
   }
 `

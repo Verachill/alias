@@ -8,8 +8,7 @@ import {
 
 import styled, { useTheme } from 'styled-components'
 import { AnimatePresence, motion } from 'framer-motion'
-// -----------------------------
-import ButtonAnimation from '../components/ButtonAnimation'
+
 import Button from '../components/Button'
 import Logo from '../images/Logo'
 import PageTransition from '../components/PageTransition'
@@ -22,7 +21,6 @@ export default function StartPage({
   toggleTheme: () => void
   toggleSound: () => void
 }): JSX.Element {
-  const theme = useTheme()
   const [isExit, setIsExit] = React.useState(false)
   const config = useContext(ConfigContext)
 
@@ -34,26 +32,22 @@ export default function StartPage({
           // Logo may change
         }
         <ButtonsContainer className="buttons">
-          <ButtonAnimation>
-            <Button>Новая игра</Button>
-          </ButtonAnimation>
+          <Button>Новая игра</Button>
 
-          <ButtonAnimation>
-            <Button
-              to="/rules"
-              togglePageState={() => {
-                setIsExit(!isExit)
-              }}
-            >
-              Правила
-            </Button>
-          </ButtonAnimation>
+          <Button
+            to="/rules"
+            togglePageState={() => {
+              setIsExit(!isExit)
+            }}
+          >
+            Правила
+          </Button>
 
           <ButtonsSubContainer className="subButtons">
             <Button onclick={toggleTheme}>
               <AnimatePresence exitBeforeEnter initial={false}>
                 <IconContainer
-                  key={config?.state.isDark ? 'dark' : 'light'}
+                  trigger={config?.state.isDark ? 'dark' : 'light'}
                   type="theme"
                 >
                   {config?.state.isDark ? (
@@ -68,7 +62,7 @@ export default function StartPage({
             <Button onclick={toggleSound}>
               <AnimatePresence exitBeforeEnter initial={false}>
                 <IconContainer
-                  key={config?.state.sound ? 'unmuted' : 'muted'}
+                  trigger={config?.state.sound ? 'unmuted' : 'muted'}
                   type="sound"
                 >
                   {config?.state.sound ? (
@@ -114,18 +108,18 @@ const Title = styled.h1`
 
 function IconContainer({
   children,
-  key,
+  trigger,
   type,
 }: {
   children: JSX.Element
-  key: string
+  trigger: string
   type: 'sound' | 'theme'
 }): JSX.Element {
   return (
     <motion.div
       className="soundIcon"
       style={{ display: 'inline-block' }}
-      key={key}
+      key={trigger}
       initial={type === 'sound' ? { opacity: 0 } : { opacity: 0, y: -20 }}
       animate={type === 'sound' ? { opacity: 1 } : { opacity: 1, y: 0 }}
       exit={type === 'sound' ? { opacity: 0 } : { opacity: 0, y: 20 }}

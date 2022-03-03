@@ -1,7 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
-
-import { wordType } from './types'
-import { fetchWordsThemesAll, fetchRandomWords } from './api/api'
+import React, { useContext } from 'react'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
@@ -16,8 +13,6 @@ import Rules from './pages/Rules'
 import Background from './components/Background'
 
 export default function App() {
-
-
   const config = useContext(ConfigContext)
 
   return (

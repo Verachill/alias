@@ -1,7 +1,3 @@
-*{
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
   overflow: hidden;
@@ -13,24 +9,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-/* Animation declaration */
-/* 
-.backgroundImage-enter,
-.themeIcon-enter {
-  opacity: 0;
-}
-.backgroundImage-enter-active,
-.themeIcon-enter-active {
-  opacity: 1;
-  transition: opacity 0.2s ease-in;
-}
-.backgroundImage-exit,
-.themeIcon-exit {
-  opacity: 1;
-}
-.backgroundImage-exit-active,
-.themeIcon-exit-active {
-  opacity: 0;
-  transition: opacity 0.2s ease-in;
-} */
