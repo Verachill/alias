@@ -43,7 +43,10 @@ export default function Button({
   )
 }
 
-const StyledButton = styled.button`
+interface Props {
+  navigation?: boolean
+}
+const StyledButton = styled.button<Props>`
    {
     border: 0 none;
     border-radius: 50px;
@@ -62,8 +65,6 @@ const StyledButton = styled.button`
       props.theme.isDark
         ? `radial-gradient(100% 2388.37% at 0% 0%, rgba(255, 255, 255, 0.48) 0%, rgba(255, 255, 255, 0.06) 100%);`
         : `radial-gradient(100% 2388.37% at 0% 50%, rgba(105, 113, 151, 0.48) 0%, rgba(105, 113, 151, 0.06) 100%);`};
-
-    &:hover,
     &:active {
       transform: scale(0.92);
       opacity: 0.6;
